@@ -47,9 +47,23 @@ class AnalyzeRequest(BaseModel):
     issue_body: Optional[str] = None
 
 
-@app.get("/")
-def root():
-    return {"message": "RepoRescue API is running!"}
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+dist_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend", "dist")
+if os.path.exists(dist_dir):
+    assets_dir = os.path.join(dist_dir, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/")
+    def serve_root():
+        return FileResponse(os.path.join(dist_dir, "index.html"))
+else:
+    @app.get("/")
+    def root():
+        return {"message": "RepoRescue API is running! Frontend dist not found."}
 
 
 @app.get("/api/test-ai")
@@ -152,3 +166,13 @@ def ask_repo(request: RepoQuestionRequest):
 
     answer_data = answer_repo_question(question, context, owner, repo)
     return answer_data
+
+
+if os.path.exists(dist_dir):
+    @app.get("/{full_path:path}")
+    def serve_frontend_spa(full_path: str):
+        target = os.path.join(dist_dir, full_path)
+        if full_path and os.path.isfile(target):
+            return FileResponse(target)
+        return FileResponse(os.path.join(dist_dir, "index.html"))
+
