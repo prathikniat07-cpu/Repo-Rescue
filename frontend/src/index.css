@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,108 +6,121 @@
 
 @layer base {
   * {
-    @apply border-dark-600;
+    @apply border-dark-700/60;
   }
   html {
     @apply scroll-smooth;
   }
   body {
-    @apply bg-dark-900 text-slate-100 font-sans antialiased;
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(20,184,166,0.12), transparent);
+    @apply bg-dark-900 text-slate-100 font-sans antialiased min-h-screen;
+    background-image: 
+      radial-gradient(circle at 50% -10%, rgba(20, 184, 166, 0.15), transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.08), transparent 50%),
+      linear-gradient(to bottom, #070b14, #040711);
     background-attachment: fixed;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-dark-800/60 backdrop-blur-xl border border-dark-600/50 rounded-2xl;
+    @apply bg-dark-850/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl shadow-glass;
   }
 
-  .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:border-brand-500/30 hover:bg-dark-800/80 hover:shadow-lg hover:shadow-brand-500/5;
+  .glass-card-interactive {
+    @apply glass-card transition-all duration-200 hover:border-brand-500/40 hover:bg-dark-800/90 hover:shadow-glow-teal;
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
-           bg-gradient-to-r from-brand-500 to-brand-600 text-white
-           hover:from-brand-400 hover:to-brand-500
-           transition-all duration-200 shadow-lg shadow-brand-500/20
-           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-brand-500 disabled:hover:to-brand-600;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
+           bg-gradient-to-r from-brand-500 to-teal-600 text-white
+           hover:from-brand-400 hover:to-teal-500 active:scale-[0.98]
+           transition-all duration-200 shadow-md shadow-brand-500/20 border border-brand-400/30
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:hover:from-brand-500;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm
-           bg-dark-700 text-slate-300 border border-dark-600
-           hover:bg-dark-600 hover:text-white hover:border-brand-500/40
-           transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-medium text-sm
+           bg-dark-800/90 text-slate-200 border border-slate-700/70
+           hover:bg-dark-750 hover:text-white hover:border-slate-600 active:scale-[0.98]
+           transition-all duration-200 shadow-sm
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
+           text-slate-400 hover:text-slate-100 hover:bg-dark-750/70 transition-all duration-150;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl bg-dark-800 border border-dark-600
+    @apply w-full px-4 py-2.5 rounded-xl bg-dark-950/80 border border-slate-800
            text-slate-100 placeholder-slate-500 font-mono text-sm
-           focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50
+           focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500/70
            transition-all duration-200;
   }
 
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
-  }
-
-  .badge-green {
-    @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
-  }
-
-  .badge-blue {
-    @apply badge bg-blue-500/10 text-blue-400 border border-blue-500/20;
-  }
-
-  .badge-yellow {
-    @apply badge bg-amber-500/10 text-amber-400 border border-amber-500/20;
-  }
-
-  .badge-red {
-    @apply badge bg-red-500/10 text-red-400 border border-red-500/20;
-  }
-
-  .badge-purple {
-    @apply badge bg-purple-500/10 text-purple-400 border border-purple-500/20;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-wide;
   }
 
   .badge-teal {
-    @apply badge bg-brand-500/10 text-brand-400 border border-brand-500/20;
+    @apply badge bg-teal-500/10 text-teal-300 border border-teal-500/30;
+  }
+
+  .badge-green {
+    @apply badge bg-emerald-500/10 text-emerald-300 border border-emerald-500/30;
+  }
+
+  .badge-blue {
+    @apply badge bg-sky-500/10 text-sky-300 border border-sky-500/30;
+  }
+
+  .badge-indigo {
+    @apply badge bg-indigo-500/10 text-indigo-300 border border-indigo-500/30;
+  }
+
+  .badge-yellow {
+    @apply badge bg-amber-500/10 text-amber-300 border border-amber-500/30;
+  }
+
+  .badge-red {
+    @apply badge bg-rose-500/10 text-rose-300 border border-rose-500/30;
+  }
+
+  .badge-purple {
+    @apply badge bg-purple-500/10 text-purple-300 border border-purple-500/30;
   }
 
   .section-title {
-    @apply text-xs font-semibold uppercase tracking-widest text-slate-500;
-  }
-
-  .code-block {
-    @apply font-mono text-sm bg-dark-950/80 border border-dark-600/50 rounded-lg px-3 py-2 text-brand-300;
+    @apply text-[11px] font-bold uppercase tracking-widest text-slate-400;
   }
 }
 
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: #263354 transparent;
+    scrollbar-color: #243250 transparent;
   }
   .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #263354;
-    border-radius: 3px;
+    background-color: #243250;
+    border-radius: 9999px;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-teal-300;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-300 via-brand-400 to-cyan-200;
+  }
+
+  .text-gradient-purple {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-300 via-indigo-300 to-purple-400;
   }
 
   .shimmer-bg {
-    background: linear-gradient(90deg, #0f1629 25%, #151d35 50%, #0f1629 75%);
+    background: linear-gradient(90deg, #0b101d 25%, #141d33 50%, #0b101d 75%);
     background-size: 200% 100%;
     animation: shimmer 2s linear infinite;
   }
